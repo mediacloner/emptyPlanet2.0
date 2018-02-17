@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+.jumbotron {
+  padding: 0px;
+  text-align: center;
+  align-items: center;
+  background-color: transparent;
+}
+
+.boxCounter {
+  margin: 12px auto;
+  max-width: 500px;
+  padding: 16px;
+  width: 80%;
+}
+.card{
+  background-color: transparent;
+  border: none;
+}
+
+.counter {
+  border: solid black 1px;
+}
