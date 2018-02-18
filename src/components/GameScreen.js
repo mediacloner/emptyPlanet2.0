@@ -158,31 +158,29 @@ class GameScreen extends Component {
                         <ModalBody className="bg-dark text-white">
                           Try to guess capital and region of {}
                           <FormGroup>
-                            <Label for="exampleSelect">Capital</Label>
-                            <Input type="select" name="select" id="exampleSelect">
-                              <option>Capital 1</option>
-                              <option>Capital 2</option>
-                              <option>Capital 3</option>
-                              <option>Capital 4</option>
-                              <option>Capital 5</option>
+                            <Label for="Capital">Capital</Label>
+                            <Input type="select" name="select" id="Capital">
+                              {this.props.randomCapitals.map(
+                                (capital, index) => (
+                                  <option key={index}>{capital}</option>
+                                )
+                              )}
                             </Input>
                           </FormGroup>
                           <FormGroup>
-                            <Label for="exampleSelect">Region</Label>
-                            <Input type="select" name="select" id="exampleSelect">
-                              <option>Region 1</option>
-                              <option>Region 2</option>
-                              <option>Region 3</option>
-                              <option>Region 4</option>
-                              <option>Region 5</option>
+                            <Label for="Region">Region</Label>
+                            <Input type="select" name="select" id="Region">
+                              {this.props.subRegions.map(
+                                (subregion, index) => (
+                                  <option key={index}>{subregion}</option>
+                                )
+                              )}
                             </Input>
                           </FormGroup>
                         </ModalBody>
                         <ModalFooter className="bg-secondary text-white">
-                          <Button color="primary" onClick={this.toggle}>
-                            Do Something
-                          </Button> <Button color="secondary" onClick={this.toggle}>
-                            Cancel
+                          <Button color="btn-success" onClick={this.toggle}>
+                            Try
                           </Button>
                         </ModalFooter>
                       </Modal>

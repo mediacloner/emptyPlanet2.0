@@ -55,25 +55,28 @@ class App extends Component {
       currentPage: "SplashScreen",
       focusPlayer: 1,
       nextCountry: 0,
-      enableOK: false, 
-      arrowsUI: 'noActive',
+      enableOK: false,
+      arrowsUI: "noActive",
+      randomCapitals: []
     };
   }
 
   //////////////////////////////Behaviour Button/////////////////////////////
-  tryAnswer = 0
-
+  tryAnswer = 0;
 
   actionButton = () => {
     //Action Button
-    console.log(this.state.selectorCountries.length, this.state.currentCountry.posSelecCountries)
-    if (this.state.currentCountry.posSelecCountries < (countriesIterations - 1)) {
+    console.log(
+      this.state.selectorCountries.length,
+      this.state.currentCountry.posSelecCountries
+    );
+    if (this.state.currentCountry.posSelecCountries < countriesIterations - 1) {
       this.currentCountry(this.state.currentCountry.posSelecCountries + 1);
 
       this.setState({ countDown: countDownDefault }); //Inicialice CountDown
       //this.setState({ enableOK: false });
       this.setState({ nextCountry: 0 });
-      this.setSubstractCountDown(true)
+      this.setSubstractCountDown(true);
 
       this.setState({
         messages: "Can you get the population country?",
@@ -81,15 +84,17 @@ class App extends Component {
       });
 
       this.countDown(1); // Start CounDown
-    } else if ((countriesIterations - 1) === this.state.currentCountry.posSelecCountries) { // Last Screen
-      console.log ('fin')
+    } else if (
+      countriesIterations - 1 ===
+      this.state.currentCountry.posSelecCountries
+    ) {
+      // Last Screen
+      console.log("fin");
 
-      this.setState({ currentPage: "FinalScreen" })
+      this.setState({ currentPage: "FinalScreen" });
       this.setState({ nextCountry: 0 });
     }
-
-  }
-
+  };
 
   //////////////////////////////Game Play/////////////////////////////
 
@@ -99,26 +104,19 @@ class App extends Component {
     } else this.setState({ substractCountDown: false });
   };
 
-
   componentWillMount() {
     setInterval(this.countDown, 250);
     if (typeof this.countriesRawResults === "undefined") {
       //Inicialization
       this.retrieveCountries();
       this.randomFocusPlayer();
-
     }
-
   }
 
-
-  checkResult = (val) => {
-
-    this.tryAnswer = Number(val)
-    console.log(this.tryAnswer, this.state.currentCountry.population)
-    if (
-      this.state.countDown === 0
-    ) {
+  checkResult = val => {
+    this.tryAnswer = Number(val);
+    console.log(this.tryAnswer, this.state.currentCountry.population);
+    if (this.state.countDown === 0) {
       /// Wrong attemp
       this.setState({ nextCountry: 1 });
       this.setState({
@@ -126,101 +124,85 @@ class App extends Component {
         arrowsUI: "noActive"
       });
       this.changePlayer();
-    }
-
-    else if (
-      this.tryAnswer === this.state.currentCountry.population 
-    ) {
+    } else if (this.tryAnswer === this.state.currentCountry.population) {
       /// WIN
-      if (this.state.substractCountDown === true) this.addToScore(this.state.focusPlayer) 
+      if (this.state.substractCountDown === true)
+        this.addToScore(this.state.focusPlayer);
       this.setSubstractCountDown(false);
       this.setState({ nextCountry: 1 });
       this.setState({
         messages: "You guess the population",
         arrowsUI: "right"
       });
-      
+
       this.changePlayer();
-
-    }
-
-    else if (    /// Wrong attemp
+    } else if (
+      /// Wrong attemp
       this.tryAnswer !== this.state.currentCountry.population
     ) {
-      this.tryAnswer > this.state.currentCountry.population ? this.setState(
-            {
-              messages: "You are wrong. There are less population",
-              arrowsUI: "less"
-            }
-          ) : this.setState({
+      this.tryAnswer > this.state.currentCountry.population
+        ? this.setState({
+            messages: "You are wrong. There are less population",
+            arrowsUI: "less"
+          })
+        : this.setState({
             messages: "You are wrong. There are more population",
             arrowsUI: "more"
           });
 
       this.changePlayer();
-    }
-    //this.setState({ tryAnswer: val });
-    else if (
+    } else if (
       //this.state.tryAnswer === this.state.currentCountry.population &&
       this.tryAnswer === this.state.currentCountry.population
-      
     ) {
+      //this.setState({ tryAnswer: val });
       /// WIN
       this.setSubstractCountDown(false);
       this.setState({ nextCountry: 1 });
       this.setState({ messages: "You guess the population" });
       this.addToScore(this.state.focusPlayer);
       this.changePlayer();
-
-    } 
-    
-    
-    
-    
-    
-    else if (    /// Wrong attemp
+    } else if (
+      /// Wrong attemp
       //this.state.tryAnswer !== this.state.currentCountry.population &&
       this.tryAnswer !== this.state.currentCountry.population
-      
     ) {
-      console.log ('OK', val++)
+      console.log("OK", val++);
       //this.state.tryAnswer > this.state.currentCountry.population ? this.setState({ messages: "You are wrong. There are less population" }) : this.setState({ messages: "You are wrong. There are less population" })
-  
-      this.tryAnswer > this.state.currentCountry.population ? this.setState({ messages: "You are wrong. There are less population" }) : this.setState({ messages: "You are wrong. There are more population" })
-      
+
+      this.tryAnswer > this.state.currentCountry.population
+        ? this.setState({
+            messages: "You are wrong. There are less population"
+          })
+        : this.setState({
+            messages: "You are wrong. There are more population"
+          });
+
       this.changePlayer();
-    } 
+    }
+  };
 
- 
-
-
-  }
-
-  addToScoreBonus=player=> {
+  addToScoreBonus = player => {
     if (player === 1) {
-
-      const score1 = this.state.score1 + extraBonus
+      const score1 = this.state.score1 + extraBonus;
       this.setState({ score1 });
     } else {
-      const score2 = this.state.score2 + extraBonus
+      const score2 = this.state.score2 + extraBonus;
       this.setState({ score2 });
     }
-  }
-
-  
+  };
 
   // Updating the Score.
-  addToScore = (player) => {
+  addToScore = player => {
     if (player === 1) {
-      const score1 = this.state.score1 + this.state.countDown
+      const score1 = this.state.score1 + this.state.countDown;
 
       this.setState({ score1 });
     } else {
-      const score2 = this.state.score2 + this.state.countDown
+      const score2 = this.state.score2 + this.state.countDown;
       this.setState({ score2 });
-
     }
-  }
+  };
 
   extraBonus = (capital, region) => {
     if (capital === this.state.currentCountry.capital) {
@@ -265,9 +247,10 @@ class App extends Component {
   }
 
   changePlayer() {
-
     if (this.state.nextCountry === 0)
-     (this.state.focusPlayer === 1) ? this.setState({ focusPlayer: 2 }):this.setState({ focusPlayer: 1 });
+      this.state.focusPlayer === 1
+        ? this.setState({ focusPlayer: 2 })
+        : this.setState({ focusPlayer: 1 });
   }
 
   //////////////////////////////Count Down/////////////////////////////
@@ -278,10 +261,10 @@ class App extends Component {
     );
 
     if (this.state.substractCountDown === true) {
-      if (this.state.countDown-substractFraction <= 0) {
+      if (this.state.countDown - substractFraction <= 0) {
         this.setState({ substractCountDown: false });
         this.setState({ countDown: 0 });
-        this.checkResult(0.0001); 
+        this.checkResult(0.0001);
       } else {
         this.setState(prevState => {
           return { countDown: prevState.countDown - substractFraction };
@@ -308,7 +291,9 @@ class App extends Component {
       )
       .then(() =>
         this.currentCountry(this.state.currentCountry.posSelecCountries)
-      );
+      )
+      .then(() => this.subRegionField())
+      .then(() => this.randomCapitals());
   }
 
   // (Number of iterations, Maximun Random Number that you can modify in top settings )
@@ -336,11 +321,30 @@ class App extends Component {
   // Field opcions extra points of Guess the region.
   subRegionField() {
     let arrSubRegions = [];
-    this.countriesRawResults.forEach(e => {
-      if (arrSubRegions.indexOf(e.subRegion) < 0)
-        arrSubRegions.push(e.subRegion.sort); // Filter for no duplicate options
+    this.state.countriesRawResults.forEach(e => {
+      if (arrSubRegions.indexOf(e.subregion) < 0)
+        arrSubRegions.push(e.subregion); // Filter for no duplicate options
     });
     this.setState({ subRegions: arrSubRegions.sort() });
+  }
+
+  randomCapitals() {
+    let capitalSelCountries = [];
+    this.state.selectorCountries.forEach(e => {
+      console.log("hey", e);
+      capitalSelCountries.push(this.state.countriesRawResults[e].capital);
+    });
+
+    function shuffle(a) {
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      } 
+    let ranCapSelCoun = shuffle(capitalSelCountries)
+    
+    this.setState({ randomCapitals: ranCapSelCoun });
   }
 
   changePage = page => {
@@ -381,24 +385,24 @@ class App extends Component {
             flag={this.state.currentCountry.flag}
             latlng={this.state.currentCountry.latlng}
             arrowsUI={this.state.arrowsUI}
+            subRegions={this.state.subRegions}
+            randomCapitals={this.state.randomCapitals}
           />
         )}
 
         {currentPage === "BonusScreen" && (
-          <BonusScreen
-          extraBonus = {this.state.extraBonus}
-          />
+          <BonusScreen extraBonus={this.state.extraBonus} />
         )}
 
-        {currentPage === "FinalScreen" && <FinalScreen
-
-          player1={this.state.player1}
-          player2={this.state.player2}
-          score1={this.state.score1}
-          score2={this.state.score2}
-          changePage={this.changePage}
-
-        />}
+        {currentPage === "FinalScreen" && (
+          <FinalScreen
+            player1={this.state.player1}
+            player2={this.state.player2}
+            score1={this.state.score1}
+            score2={this.state.score2}
+            changePage={this.changePage}
+          />
+        )}
       </Container>
     );
   }
