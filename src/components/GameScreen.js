@@ -17,6 +17,8 @@ import ReactDOM from "react-dom";
 mapboxgl.accessToken =
   "pk.eyJ1IjoibWVkaWFjbG9uZXIiLCJhIjoiY2pkcWtvaHd0MDgyNzJ4cGN2ZDB1MG1tZCJ9.BBUqXdokpN2MbxKg6RZqcQ";
 
+let mapDesign = "mapbox://styles/mediacloner/cjds044272vwt2sp91rj2po6n";
+
 class GameScreen extends Component {
   constructor() {
     super();
@@ -40,11 +42,17 @@ class GameScreen extends Component {
 
       const map = new mapboxgl.Map({
         container: this.mapContainer,
-        style: "mapbox://styles/mediacloner/cjds2emtp2y3m2snlm2p6uk7u",
+        style: mapDesign,
         center: [this.props.latlng[1], this.props.latlng[0]],
         zoom
       });
     }
+  }
+
+
+
+  oldConqueror () {
+    mapDesign = "mapbox://styles/mediacloner/cjds2emtp2y3m2snlm2p6uk7u"
   }
 
   componentDidMount() {
@@ -79,6 +87,7 @@ class GameScreen extends Component {
 
   handleChange = e => {
     this.setState({ input: e.target.value });
+    if (e.target.value === 'oldconqueror') this.oldConqueror();
     this.updateMap();
   };
 
@@ -146,14 +155,6 @@ class GameScreen extends Component {
                        
                     }
                     
-                  
-
-
-
-
-
-
-
 
                     <h5>{this.props.messages}</h5>
                   </div>
@@ -181,7 +182,7 @@ class GameScreen extends Component {
                   <input
                     type="text"
                     name="tries"
-                    placeholder="Try to guess"
+                    placeholder="Try. 0.0 Millions Format "
                     autoFocus={true}
                     value={this.state.input}
                     onChange={this.handleChange}
