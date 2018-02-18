@@ -54,7 +54,8 @@ class App extends Component {
       currentPage: "SplashScreen",
       focusPlayer: 1,
       nextCountry: 0,
-      enableOK: false
+      enableOK: false, 
+      arrowsUI: 'noActive',
     };
   }
 
@@ -74,7 +75,8 @@ class App extends Component {
       this.setSubstractCountDown(true)
 
       this.setState({
-        messages: "Can you get the population country?"
+        messages: "Can you get the population country?",
+        arrowsUI: "noActive"
       });
 
       this.countDown(1); // Start CounDown
@@ -119,7 +121,8 @@ class App extends Component {
       /// Wrong attemp
       this.setState({ nextCountry: 1 });
       this.setState({
-        messages: "Ups, You don't have people to take for your planet"
+        messages: "Ups, You don't have people to take for your planet",
+        arrowsUI: "noActive"
       });
       this.changePlayer();
     }
@@ -131,7 +134,10 @@ class App extends Component {
       if (this.state.substractCountDown === true) this.addToScore(this.state.focusPlayer) 
       this.setSubstractCountDown(false);
       this.setState({ nextCountry: 1 });
-      this.setState({ messages: "You guess the population" });
+      this.setState({
+        messages: "You guess the population",
+        arrowsUI: "right"
+      });
       
       this.changePlayer();
 
@@ -140,7 +146,15 @@ class App extends Component {
     else if (    /// Wrong attemp
       this.tryAnswer !== this.state.currentCountry.population
     ) {
-      this.tryAnswer > this.state.currentCountry.population ? this.setState({ messages: "You are wrong. There are less population" }) : this.setState({ messages: "You are wrong. There are more population" })
+      this.tryAnswer > this.state.currentCountry.population ? this.setState(
+            {
+              messages: "You are wrong. There are less population",
+              arrowsUI: "less"
+            }
+          ) : this.setState({
+            messages: "You are wrong. There are more population",
+            arrowsUI: "more"
+          });
 
       this.changePlayer();
     }
@@ -365,7 +379,7 @@ class App extends Component {
             actionButton={this.actionButton}
             flag={this.state.currentCountry.flag}
             latlng={this.state.currentCountry.latlng}
-            alpha3Code={this.state.currentCountry.alpha3Code}
+            arrowsUI={this.state.arrowsUI}
           />
         )}
 
