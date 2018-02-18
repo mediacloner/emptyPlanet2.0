@@ -53,7 +53,14 @@ class GameScreen extends Component {
 
   oldConqueror () {
     mapDesign = "mapbox://styles/mediacloner/cjds2emtp2y3m2snlm2p6uk7u"
+
   }
+
+  takeOnMe () {
+    mapDesign = "mapbox://styles/mediacloner/cjds2ikuf2y232sp17vwz2vd7"
+  }
+
+
 
   componentDidMount() {
     const { lng, lat, zoom } = this.state;
@@ -88,6 +95,7 @@ class GameScreen extends Component {
   handleChange = e => {
     this.setState({ input: e.target.value });
     if (e.target.value === 'oldconqueror') this.oldConqueror();
+    if (e.target.value === "takeonme") this.takeOnMe();
     this.updateMap();
   };
 
@@ -98,7 +106,7 @@ class GameScreen extends Component {
       <Container>
         <div>
           <div className="inline-block absolute top left mt12 ml12 bg-darken75 color-white z1 py6 px12 round-full txt-s txt-bold">
-            <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div>
+            {/* <div>{`Longitude: ${lng} Latitude: ${lat} Zoom: ${zoom}`}</div> */}
           </div>
           <div
             ref={el => (this.mapContainer = el)}

@@ -20,9 +20,10 @@ import GameScreen from "./components/GameScreen.js";
 import PlayerScreen from "./components/PlayerScreen.js";
 import SplashScreen from "./components/SplashScreen.js";
 
+
 // Settings
 const countDownDefault = 100000;
-const maxTimeGuessSeconds = 100;
+const maxTimeGuessSeconds = 48;
 const countriesIterations = 5;
 const extraBonus = 2000;
 
