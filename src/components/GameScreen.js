@@ -117,9 +117,53 @@ class GameScreen extends Component {
         </div>
 
         <Jumbotron>
-          <div className="boxCounter">
-            <Counter peopleCounter={this.props.countDown} />
-          </div>
+          <Row>
+            <Col>
+              <div className="boxCounter ">
+                <Counter peopleCounter={this.props.countDown} />
+              </div>
+            </Col>
+          </Row>
+
+          <Row>
+            <Col />
+            <Col>
+              <h1>{this.props.name}</h1>
+            </Col>
+            <Col>
+              {this.props.arrowsUI === "more" ? (
+                <img
+                  src={more}
+                  className="img-fluid justify-content-center"
+                  alt="Responsive"
+                />
+              ) : this.props.arrowsUI === "less" ? (
+                <img
+                  src={less}
+                  className="img-fluid justify-content-center"
+                  alt="Responsive"
+                />
+              ) : this.props.arrowsUI === "right" ? (
+                <img
+                  src={right}
+                  className="img-fluid justify-content-center"
+                  alt="Responsive"
+                />
+              ) : (
+                <img
+                  src={noActive}
+                  className="img-fluid justify-content-center"
+                  alt="Responsive"
+                />
+              )}
+            </Col>
+
+            <Col>
+              <img src={this.props.flag} className="img-fluid justify-content-center flag" alt="Responsive" />
+            </Col>
+
+            <Col />
+          </Row>
           <form onSubmit={this.handleSubmit}>
             <Container>
               <Row>
@@ -129,11 +173,7 @@ class GameScreen extends Component {
                   <div className="player">{this.props.player1}</div>
                 </Col>
                 <Col>
-                  <div>
-                    {this.props.arrowsUI === "more" ? <img src={more} className="img-fluid justify-content-center" alt="Responsive" /> : this.props.arrowsUI === "less" ? <img src={less} className="img-fluid justify-content-center" alt="Responsive" /> : this.props.arrowsUI === "right" ? <img src={right} className="img-fluid justify-content-center" alt="Responsive" /> : <img src={noActive} className="img-fluid justify-content-center" alt="Responsive" />}
-
-                    <h5>{this.props.messages}</h5>
-                  </div>
+                  <h5>{this.props.messages}</h5>
                 </Col>
                 <Col>
                   {this.props.focusPlayer === 2 ? <img src={imgPlayer2} className="img-fluid justify-content-center" alt="Responsive" /> : <img src={imgPlayer2Des} className="img-fluid justify-content-center" alt="Responsive" />}
@@ -185,10 +225,6 @@ class GameScreen extends Component {
                         </ModalFooter>
                       </Modal>
                     </div> : undefined}
-                  <div className="card-header">
-                    <h1>{this.props.name}</h1>
-                    <img src={this.props.flag} className="img-fluid justify-content-center flag" alt="Responsive" />
-                  </div>
                 </Col>
               </Row>
             </Container>
