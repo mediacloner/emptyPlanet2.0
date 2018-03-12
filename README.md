@@ -42,6 +42,10 @@ We have opened a GitHub repositorie to keep all our changes updated at every tim
 
 https://github.com/Jaimek89/emptyplanet
 
+This is a fork that integrate maps and improve the game:
+
+https://github.com/mediacloner/emptyPlanet2.0
+
 ### - SOURCES
 
 All the resources used are Open Source and/or Public Domain CCO
